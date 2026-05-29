@@ -2,6 +2,9 @@
 
 A RESTful API for searching books and managing personal reading lists, powered by the [Open Library](https://openlibrary.org) public API.
 
+**Live API:** `https://openshelf-pbk0.onrender.com`
+**Interactive docs:** `https://openshelf-pbk0.onrender.com/docs`
+
 ## What It Does
 
 OpenShelf lets users search for books by title, author, or subject using Internet Archive's Open Library public API, and maintain a personal reading list. All reading list operations are user-specific and secured with JWT authentication.
@@ -14,6 +17,8 @@ OpenShelf lets users search for books by title, author, or subject using Interne
 - **httpx** — async HTTP client for Open Library API calls
 - **JWT (python-jose)** — stateless authentication
 - **Docker** — containerised local development
+- **Render** — free web service host
+- **Neon** — free serverless PostgreSQL provider
 
 ## Architecture Decisions
 
@@ -51,6 +56,7 @@ Authentication: All endpoints except `/auth/register` and `/auth/login` require 
  POST  `/list/add` - Add a book to your reading list 
  GET  `/list` - Get your reading list
  DELETE  `/list/{ol_id}` - Remove a book from your reading list
+ GET  `/health` - Health check
 
 ## Example Usage
 
@@ -68,4 +74,24 @@ curl -X POST http://localhost:8000/auth/login \
 # Search books
 curl http://localhost:8000/books/search?q=robinson+crusoe \
   -H "Authorization: Bearer <your_token>"
+```
+
+## Deployment
+
+The API is deployed on [Render](https://render.com) free tier with the database hosted on [Neon](https://neon.tech) free tier.
+
+```bash
+# 1. Push to GitHub
+git push origin main
+
+# 2. Create a free PostgreSQL database on Neon
+# 3. On Render dashboard -> New Web Service -> connect your repo
+# 4. Set environment variables:
+#    - DATABASE_URL: your Neon connection string
+#    - SECRET_KEY: click Generate
+#    - CORS_ORIGINS: *
+#    - ALGORITHM: HS256
+#    - ACCESS_TOKEN_EXPIRE_MINUTES: 30
+# 5. Start command: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+# 6. Deploy
 ```
