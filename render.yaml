@@ -1,0 +1,21 @@
+databases:
+  - name: openshelf-db
+    databaseName: openshelf
+    user: openshelf
+
+services:
+  - type: web
+    name: openshelf
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: openshelf-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: "*"
+    healthCheckPath: /health
