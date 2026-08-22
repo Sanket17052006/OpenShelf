@@ -3,7 +3,8 @@
 A RESTful API for searching books and managing personal reading lists, powered by the [Open Library](https://openlibrary.org) public API.
 
 **Live API:** [link](https://openshelf-pbk0.onrender.com)
-**Interactive docs:** `https://openshelf-pbk0.onrender.com/docs`
+
+**Interactive docs:** [link](https://openshelf-pbk0.onrender.com/docs)
 
 ## What It Does
 
@@ -74,24 +75,4 @@ curl -X POST http://localhost:8000/auth/login \
 # Search books
 curl http://localhost:8000/books/search?q=robinson+crusoe \
   -H "Authorization: Bearer <your_token>"
-```
-
-## Deployment
-
-The API is deployed on [Render](https://render.com) free tier with the database hosted on [Neon](https://neon.tech) free tier.
-
-```bash
-# 1. Push to GitHub
-git push origin main
-
-# 2. Create a free PostgreSQL database on Neon
-# 3. On Render dashboard -> New Web Service -> connect your repo
-# 4. Set environment variables:
-#    - DATABASE_URL: your Neon connection string
-#    - SECRET_KEY: click Generate
-#    - CORS_ORIGINS: *
-#    - ALGORITHM: HS256
-#    - ACCESS_TOKEN_EXPIRE_MINUTES: 30
-# 5. Start command: uvicorn app.main:app --host 0.0.0.0 --port $PORT
-# 6. Deploy
 ```
