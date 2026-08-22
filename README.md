@@ -2,7 +2,7 @@
 
 A RESTful API for searching books and managing personal reading lists, powered by the [Open Library](https://openlibrary.org) public API.
 
-**Live API:** `https://openshelf-pbk0.onrender.com`
+**Live API:** [link](https://openshelf-pbk0.onrender.com)
 **Interactive docs:** `https://openshelf-pbk0.onrender.com/docs`
 
 ## What It Does
